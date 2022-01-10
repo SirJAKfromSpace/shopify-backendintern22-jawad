@@ -4,6 +4,7 @@
   "description": "my entry in the shopify backend summer 2022 intern challenge",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "nodemon index.js"
   },
   "author": "jakfromspace",
