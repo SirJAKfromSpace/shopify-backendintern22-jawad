@@ -1,0 +1,23 @@
+{
+  "name": "shopify-backendintern22-jawad",
+  "version": "4.0.4",
+  "description": "my entry in the shopify backend summer 2022 intern challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "jakfromspace",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-sessions": "^1.0.6",
+    "json2csv": "^5.0.6",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "uuid": "^8.3.2"
+  }
+}

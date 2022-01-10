@@ -1,0 +1,145 @@
+<script>
+    function getIdEdit(id, name, qty) {
+        const fieldid = document.getElementById('itemid')
+        const fieldname = document.getElementById('itemname')
+        const fieldqty = document.getElementById('itemqty')
+        
+        fieldid.value = id
+        fieldname.value = name
+        fieldqty.value = qty
+    }
+</script>
+
+<? if(typeof(msg) !== 'undefined') { ?>
+<div class="d-flex mt-4">
+    <div class="card p-3 px-4 text-<?=type?>">
+        <?= msg ?>
+    </div>
+</div>
+<? } ?>
+
+<br>
+
+<div class="container">
+    <div class="mb-3">
+        <h2>📦 Inventory Manager</h2>
+    </div>
+    <div class="mb-1">
+        <div>
+            <a class="btn btn-secondary" href="/">⬅️ Back</a>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newModal">
+                🆕 Add to Inventory
+            </button>
+            <a class="btn btn-primary" href="/invman">🔄 Refresh</a>
+            <a class="btn btn-dark" href="/csv">📊 Get CSV</a>
+        </div>
+        <br>
+        <div class="d-flex justify-content-between align-items-center pe-3">
+            <span>Quantity</span>
+            <span>Item Name</span>
+            <span>Controls</span>
+        </div>
+        <hr> 
+        <? if (list.items.length > 0) { ?>
+        <? list.items.forEach(function (item) { ?>
+        <div class="card bg-dark p-2 m-2 text-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="badge bg-secondary fs-6">x <?= item.qty ?></span>
+                </div>
+                <div>
+                    <span class="fs-5"><?= item.name ?></span>
+                </div>
+                <div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="getIdEdit('<?= item.id ?>', '<?= item.name ?>', '<?= item.qty ?>')">Edit</button>
+                    <a class="btn btn-danger" href="/invman/delete?id=<?=item.id?>">Delete</a>
+                </div>
+            </div>
+        </div>
+        <? }) ?>
+        <? } else { ?>
+            <div class="card bg-dark p-2 m-2 text-light">
+                <div class="d-flex justify-content-between align-items-center">
+                    🌲 List is Empty. Go ahead and add items
+                </div>
+            </div>
+        <? } ?>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+
+<!-- create -->
+<div class="modal fade" id="newModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add to Inventory</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/invman" method="post">
+
+                    <div class="form-group mb-3">
+                        <label for="itemname">Item Name to be Added</label>
+                        <input class="form-control" type="name" name="itemname" maxlength="30" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="itemqty">Item Quantity</label>
+                        <input class="form-control" type="number" name="itemqty" max="1000" />
+                    </div>
+
+                    <span class="text-secondary"><i class="text-warning fas fa-exclamation-circle me-2 mb-3"></i>Only
+                        <b>alphanumeric</b> characters</span>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Item Entry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/invman/update" method="post">
+
+                    <div class="form-group mb-3">
+                        <label for="itemname">Item Id</label>
+                        <input class="form-control" type="name" id="itemid" name="itemid" maxlength="50" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="itemname">Item Name</label>
+                        <input class="form-control" type="name" id="itemname" name="itemname" maxlength="30" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="itemqty">Item Quantity</label>
+                        <input class="form-control" type="number" id="itemqty" name="itemqty" max="1000" />
+                    </div>
+
+                    <span class="text-secondary"><i class="text-warning fas fa-exclamation-circle me-2 mb-3"></i>Only
+                        <b>alphanumeric</b> characters</span>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
